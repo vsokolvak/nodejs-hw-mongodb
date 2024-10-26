@@ -1,0 +1,46 @@
+.loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.429);
+  z-index: 10;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,  -50%);
+  animation: animloader 2s linear infinite;
+}
+
+.loader::after {
+  animation-delay: 1s;
+}
+
+.hiden {
+  display: none;
+}
+
+@keyframes animloader {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    width: 148px;
+    height: 148px;
+    opacity: 0;
+  }
+}
