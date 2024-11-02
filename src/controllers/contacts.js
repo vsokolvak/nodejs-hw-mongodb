@@ -39,7 +39,7 @@ export const createNewContactsController = async (req, res) => {
 
 export const deleteContactsByIdController = async (req, res) => {
   const { contactId } = req.params;
-  const contact = deleteContacts(contactId);
+  const contact = await deleteContacts(contactId);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
@@ -51,7 +51,7 @@ export const deleteContactsByIdController = async (req, res) => {
 
 export const puthContactsByIdController = async (req, res) => {
   const { contactId } = req.params;
-  const contact = updateContacts(contactId, req.body);
+  const contact = await updateContacts(contactId, req.body);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
