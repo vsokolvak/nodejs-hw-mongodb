@@ -21,17 +21,14 @@ export const deleteContacts = async (contactId) => {
   return contact;
 };
 
-export const updateContacts = async (studentId, payload, options = {}) => {
-
+export const updateContacts = async (contactId, payload, options = {}) => {
   const updateContact = await ContactsCollection.findOneAndUpdate(
-    { _id: studentId },
+    { _id: contactId },
     payload,
     {
       ...options,
     }
   );
-
-  if (!updateContact || !updateContact.value) return null;
 
   return updateContact;
 };
