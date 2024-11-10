@@ -8,26 +8,26 @@ const parseType = type => {
   if (isType(type)) return type;
 };
 
-const parseFavorite = favorite => {
-  const isSAtring = typeof favorite === 'string';
+const parseFavorite = favourite => {
+  const isSAtring = typeof favourite === 'string';
   if (!isSAtring) return;
 
-  const isFavorite = favorite => ['true', 'false'].includes(favorite);
+  const isFavorite = favourite => ['true', 'false'].includes(favourite);
 
-  if (isFavorite(favorite)) {
-    if (favorite === 'true') return true;
+  if (isFavorite(favourite)) {
+    if (favourite === 'true') return true;
     return false;
   }
 };
 
 export const parseFilterParams = query => {
-  const { type, isFavorite } = query;
+  const { type, isFavourite } = query;
 
   const parsedType = parseType(type);
-  const parsedFavorite = parseFavorite(isFavorite);
+  const parsedFavorite = parseFavorite(isFavourite);
 
   return {
     type: parsedType,
-    isFavorite: parsedFavorite,
+    isFavourite: parsedFavorite,
   };
 };

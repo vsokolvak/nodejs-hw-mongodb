@@ -9,17 +9,17 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   type,
-  isFavorite,
+  isFavourite,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
   const contactsQuery = ContactsCollection.find();
   if (type) {
-    contactsQuery.where('type').equals(type);
+    contactsQuery.where('contactType').equals(type);
   }
-  if (typeof isFavorite === 'boolean') {
-    contactsQuery.where('isFavorite').equals(type);
+  if (typeof isFavourite === 'boolean') {
+    contactsQuery.where('isFavourite').equals(isFavourite);
   }
 
   const contactsCount = await ContactsCollection.find()
