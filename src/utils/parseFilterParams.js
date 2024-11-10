@@ -1,4 +1,4 @@
-import { contactsType } from "../db/models/contacts";
+import { contactsType } from "../db/models/contacts.js";
 
 const parseType = type => {
   const isString = typeof type === 'string';
