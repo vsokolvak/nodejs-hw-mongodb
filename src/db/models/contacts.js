@@ -1,5 +1,7 @@
 import { model, Schema } from "mongoose";
 
+export const contactsType = ['work', 'home', 'personal'];
+
 const contactsShema = new Schema(
   {
     name: {
@@ -19,7 +21,7 @@ const contactsShema = new Schema(
     },
     contactType: {
       type: String,
-      enum: ['work', 'home', 'personal'],
+      enum: contactsType,
       required: true,
       default: 'personal',
     },
@@ -27,7 +29,7 @@ const contactsShema = new Schema(
   {
     timestamps: true,
     versionKey: false,
-  },
+  }
 );
 
 export const ContactsCollection = model("contacts", contactsShema);
