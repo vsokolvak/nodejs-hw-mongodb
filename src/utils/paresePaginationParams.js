@@ -1,7 +1,6 @@
 
-
 const parseNumber = (reqNumber, defaultValue) => {
-  const isString = typeof number === 'string';
+  const isString = typeof reqNumber === 'string';
   if (!isString) return defaultValue;
 
   const parsedNumber = parseInt(reqNumber);
@@ -23,3 +22,5 @@ export const parsePaginationParams = query => {
     perPage: parsedPerPage,
   };
 };
+
+parsePaginationParams({page:'2', perPage:'3'});
