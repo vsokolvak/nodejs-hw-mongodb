@@ -5,10 +5,10 @@ const parseNumber = (reqNumber, defaultValue) => {
 
   const parsedNumber = parseInt(reqNumber);
   if (Number.isNaN(parsedNumber)) {
-    return defaultValue;
+    return Number(defaultValue);
   }
 
-  return reqNumber;
+  return Number(reqNumber);
 };
 
 export const parsePaginationParams = query => {
