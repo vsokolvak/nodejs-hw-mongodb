@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
-import { UserCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
+
+import { UserCollection } from '../db/models/user.js';
+import { SessionCollection } from '../db/models/session.js';
+import { createSession } from '../utils/createSession.js';
 
 export const registerUser = async payload => {
 
@@ -26,5 +29,44 @@ export const loginUser = async payload => {
     throw createHttpError(401, 'Unauthorized');
   }
 
-  // далі ми доповнемо цей сервіс
+  await SessionCollection.deleteOne({ userId: user._id });
+
+  const newSession = createSession();
+
+  return await SessionCollection.create({
+    userId: user._id,
+    ...newSession,
+  });
+};
+
+export const logoutUser = async sessionId => {
+  await SessionCollection.deleteOne({ _id: sessionId });
+};
+
+export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
+  const session = await SessionCollection.findOne({
+    _id: sessionId,
+    refreshToken,
+  });
+
+  if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
+
+  const isSessionTokenExpired =
+    new Date() > new Date(session.refreshTokenValidUntil);
+
+  if (isSessionTokenExpired) {
+    throw createHttpError(401, 'Session token expired');
+  }
+
+  await SessionCollection.deleteOne({ _id: sessionId, refreshToken });
+
+
+  const newSession = createSession();
+
+  return await SessionCollection.create({
+    userId: session.userId,
+    ...newSession,
+  });
 };

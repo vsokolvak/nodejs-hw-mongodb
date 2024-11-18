@@ -5,6 +5,7 @@ import { env } from './env.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routers/index.js';
+import cookieParser from 'cookie-parser';
 
 const PORT = Number(env('PORT')) || 3000;
 
@@ -29,6 +30,7 @@ export const setupServer = () => {
     })
   );
   app.use(cors());
+  app.use(cookieParser());
 
   // errors
   app.use('*', notFoundHandler);
