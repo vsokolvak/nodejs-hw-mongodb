@@ -10,24 +10,24 @@ const contactsRouter = Router();
 
   // response controllers
 
-  contactsRouter.get('/contacts', cntrlWrapper(getAllContactsController));
+  contactsRouter.get('/', cntrlWrapper(getAllContactsController));
 
-  contactsRouter.get('/contacts/:contactId', isValidId, cntrlWrapper(getContactsByIdController));
+  contactsRouter.get('/:contactId', isValidId, cntrlWrapper(getContactsByIdController));
 
   contactsRouter.post(
-    '/contacts',
+    '/',
     validateBody(createContactsShema),
     cntrlWrapper(createNewContactsController)
   );
 
   contactsRouter.delete(
-    '/contacts/:contactId',
+    '/:contactId',
     isValidId,
     cntrlWrapper(deleteContactsByIdController)
   );
 
   contactsRouter.patch(
-    '/contacts/:contactId',
+    '/:contactId',
     isValidId,
     validateBody(createContactsShema),
     cntrlWrapper(puthContactsByIdController)
