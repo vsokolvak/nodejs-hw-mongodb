@@ -2,11 +2,14 @@ import { Router } from "express";
 import { createNewContactsController, deleteContactsByIdController, getAllContactsController, getContactsByIdController, puthContactsByIdController } from "../controllers/contacts.js";
 import { cntrlWrapper } from "../utils/cntrlWrapper.js";
 import { validateBody } from "../middlewares/validateBody.js";
-import { createContactsShema } from "../validation/contacts.js";
+import { createContactsShema, updateContactsShema } from "../validation/contacts.js";
 import { isValidId } from "../middlewares/isValidId.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 
 const contactsRouter = Router();
+
+contactsRouter.use(authenticate);
 
   // response controllers
 
@@ -29,7 +32,7 @@ const contactsRouter = Router();
   contactsRouter.patch(
     '/:contactId',
     isValidId,
-    validateBody(createContactsShema),
+    validateBody(updateContactsShema),
     cntrlWrapper(puthContactsByIdController)
   );
 
