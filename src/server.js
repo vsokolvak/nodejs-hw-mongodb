@@ -18,10 +18,6 @@ export const setupServer = () => {
 
   app.use(express.json());
 
-  // router use
-
-  app.use(router);
-
   app.use(
     pino({
       transport: {
@@ -31,6 +27,10 @@ export const setupServer = () => {
   );
   app.use(cors());
   app.use(cookieParser());
+
+  // router use
+
+  app.use(router);
 
   // errors
   app.use('*', notFoundHandler);
