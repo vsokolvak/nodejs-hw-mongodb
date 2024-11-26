@@ -3,6 +3,7 @@ import createHttpError from 'http-errors';
 import { parsePaginationParams } from "../utils/paresePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
 
 export const getAllContactsController = async (req, res) => {
@@ -48,7 +49,17 @@ export const getContactsByIdController = async (req, res, next) => {
 export const createNewContactsController = async (req, res) => {
 
   const userId = req.user._id;
-  const contact = await createContacts({...req.body, userId});
+  const photo = req.file;
+
+  let photoUrl;
+
+  if (photo) photoUrl = await saveFileToCloudinary(photo);
+
+  const contact = await createContacts({
+    ...req.body,
+    userId,
+    photo: photoUrl,
+  });
 
   res.status(201).json({
     status: 201,
@@ -76,8 +87,13 @@ export const deleteContactsByIdController = async (req, res) => {
 export const puthContactsByIdController = async (req, res) => {
   const { contactId } = req.params;
   const userId = req.user._id;
+  const photo = req.file;
 
-  const contact = await updateContacts(contactId, userId, req.body);
+  let photoUrl;
+
+  if (photo) photoUrl = await saveFileToCloudinary(photo);
+
+  const contact = await updateContacts(contactId, userId, photoUrl, req.body);
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');

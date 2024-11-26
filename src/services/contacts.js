@@ -27,7 +27,7 @@ export const getAllContacts = async ({
   const contactsCount = await ContactsCollection.find({ userId })
     .merge(contactsQuery)
     .countDocuments();
-    
+
   const contacts = await contactsQuery
     .find({ userId })
     .skip(skip)
@@ -61,10 +61,10 @@ export const deleteContacts = async (contactId, userId) => {
   return contact;
 };
 
-export const updateContacts = async (contactId, userId, payload, options = {new:true}) => {
+export const updateContacts = async (contactId, userId, photoUrl, payload, options = {new:true}) => {
   const updateContact = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
-    payload,
+    {...payload, photo: photoUrl},
     {
       ...options,
     }
