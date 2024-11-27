@@ -23,7 +23,7 @@ authRouter.post('/logout', cntrlWrapper(logoutUserController));
 authRouter.post('/refresh', cntrlWrapper(refreshUserSessionController));
 
 authRouter.post(
-  '/request-reset-email',
+  '/send-reset-email',
   validateBody(requestResetEmailSchema),
   cntrlWrapper(requestResetEmailController)
 );
