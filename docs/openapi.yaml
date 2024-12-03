@@ -12,7 +12,7 @@ tags:
     description: Operations about contacts.
 servers:
   - url: http://localhost:3000
-  # - url: #посилання на задеплоєний сайт
+  - url: https://nodejs-hw-mongodb-eyw0.onrender.com
 paths:
   /contacts:
     get:
