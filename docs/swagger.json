@@ -192,9 +192,7 @@
                   "name",
                   "phoneNumber",
                   "email",
-                  "isFavourite",
-                  "contactType",
-                  "photo"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
